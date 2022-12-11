@@ -30,47 +30,47 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
-POV_Clock.lss \
+POV_Display.lss \
 
 FLASH_IMAGE += \
-POV_Clock.hex \
+POV_Display.hex \
 
 SIZEDUMMY += \
 sizedummy \
 
 
 # All Target
-all: POV_Clock.elf secondary-outputs
+all: POV_Display.elf secondary-outputs
 
 # Tool invocations
-POV_Clock.elf: $(OBJS) $(USER_OBJS)
+POV_Display.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,POV_Clock.map -mmcu=atmega32 -o "POV_Clock.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,POV_Display.map -mmcu=atmega32 -o "POV_Display.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-POV_Clock.lss: POV_Clock.elf
+POV_Display.lss: POV_Display.elf
 	@echo 'Invoking: AVR Create Extended Listing'
-	-avr-objdump -h -S POV_Clock.elf  >"POV_Clock.lss"
+	-avr-objdump -h -S POV_Display.elf  >"POV_Display.lss"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-POV_Clock.hex: POV_Clock.elf
+POV_Display.hex: POV_Display.elf
 	@echo 'Create Flash image (ihex format)'
-	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex POV_Clock.elf  "POV_Clock.hex"
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex POV_Display.elf  "POV_Display.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: POV_Clock.elf
+sizedummy: POV_Display.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega32 POV_Clock.elf
+	-avr-size --format=avr --mcu=atmega32 POV_Display.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) POV_Clock.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) POV_Display.elf
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(SIZEDUMMY)

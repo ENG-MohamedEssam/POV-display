@@ -1,16 +1,14 @@
 /*********************************************/
 /* 				Name : Mohamed Essam 		 */
-/*				Date : 4/12/2022			 */
-/*				SWC  :	GIE		 			 */
+/*				Date : 10/12/2022			 */
+/*				SWC  :	TIMERS	 			 */
 /*			version  : 	1.0					 */
 /*********************************************/
 
-#ifndef GIE_INTERFACE_H
-#define GIE_INTERFACE_H
+#ifndef TMR_CONFIG_H
+#define TMR_CONFIG_H
 
 
-void GIE_voidEnable(void);
-void GIE_voidDisable(void);
 
 
 #endif

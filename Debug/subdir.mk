@@ -4,24 +4,21 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../DIO_program.c \
 ../EXTI_program.c \
 ../GIE_program.c \
-../TIMER_program.c \
+../TMR_program.c \
 ../main.c 
 
 OBJS += \
-./DIO_program.o \
 ./EXTI_program.o \
 ./GIE_program.o \
-./TIMER_program.o \
+./TMR_program.o \
 ./main.o 
 
 C_DEPS += \
-./DIO_program.d \
 ./EXTI_program.d \
 ./GIE_program.d \
-./TIMER_program.d \
+./TMR_program.d \
 ./main.d 
 
 
