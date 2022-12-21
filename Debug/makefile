@@ -30,47 +30,47 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
-POV_Display.lss \
+Ard_Tmr_Tst.lss \
 
 FLASH_IMAGE += \
-POV_Display.hex \
+Ard_Tmr_Tst.hex \
 
 SIZEDUMMY += \
 sizedummy \
 
 
 # All Target
-all: POV_Display.elf secondary-outputs
+all: Ard_Tmr_Tst.elf secondary-outputs
 
 # Tool invocations
-POV_Display.elf: $(OBJS) $(USER_OBJS)
+Ard_Tmr_Tst.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,POV_Display.map -mmcu=atmega32 -o "POV_Display.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,Ard_Tmr_Tst.map -mmcu=atmega32 -o "Ard_Tmr_Tst.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-POV_Display.lss: POV_Display.elf
+Ard_Tmr_Tst.lss: Ard_Tmr_Tst.elf
 	@echo 'Invoking: AVR Create Extended Listing'
-	-avr-objdump -h -S POV_Display.elf  >"POV_Display.lss"
+	-avr-objdump -h -S Ard_Tmr_Tst.elf  >"Ard_Tmr_Tst.lss"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-POV_Display.hex: POV_Display.elf
+Ard_Tmr_Tst.hex: Ard_Tmr_Tst.elf
 	@echo 'Create Flash image (ihex format)'
-	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex POV_Display.elf  "POV_Display.hex"
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex Ard_Tmr_Tst.elf  "Ard_Tmr_Tst.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: POV_Display.elf
+sizedummy: Ard_Tmr_Tst.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega32 POV_Display.elf
+	-avr-size --format=avr --mcu=atmega32 Ard_Tmr_Tst.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) POV_Display.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) Ard_Tmr_Tst.elf
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(SIZEDUMMY)

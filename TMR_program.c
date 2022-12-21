@@ -41,42 +41,50 @@ volatile unsigned long timer0_millis = 0;
 static unsigned char timer0_fract = 0;
 
 
+//#define TCCR0A	TMR_u8_TCCR0
+//#define OCR0A	TMR_u8_OCR0
+//#define TIMSK0	TMR_u8_TIMSK
+//#define TCCR0B	TMR_u8_
+//
+//#define WGM01
+//#define OCIE0A
+//#define CS01
+//#define CS00
 
 void TMR_voidTMR0Init(void)
 {
+#if 1
 	// Select mode => CTC mode
 	CLR_BIT(TMR_u8_TCCR0,6);
 	SET_BIT(TMR_u8_TCCR0,3);
-	// Enable OVF Interrupt
-	SET_BIT(TMR_u8_TIMSK,0);
+	//set the value for 1ms
+	TMR_u8_OCR0 = 0xF9;
+	// Enable Interrupt CTC
+	SET_BIT(TMR_u8_TIMSK,1);
+//	sei();
+	GIE_voidEnable();
 	// Set preload value
-	//TMR_u8_TCNT0 = 192;
+//	TMR_u8_TCNT0 = 192;
 	// Set prescaler value clk / 64
 	CLR_BIT(TMR_u8_TCCR0,2);
 	SET_BIT(TMR_u8_TCCR0,1);
 	SET_BIT(TMR_u8_TCCR0,0);
+#endif
+//	TCCR0A|=(1<<WGM01);    //Set the CTC mode
+//	 OCR0A=0xF9;            //Set the value for 1ms
+//	 TIMSK0|=(1<<OCIE0A);   //Set the interrupt request
+//	 sei();                 //Enable interrupt
+//	 TCCR0B|=(1<<CS01);    //Set the prescale 1/64 clock
+//	 TCCR0B|=(1<<CS00);
 	
 }
 
 // prototype of ovf ISR
 
-//void __vector_11(void)	__attribute__((signal));
-//void __vector_11(void)
-ISR(TIMER0_OVF_vect)
+void __vector_10(void)	__attribute__((signal));
+void __vector_10(void)
+//ISR(TIMER0_OVF_vect)
 {
-	/*
-	static u16 Local_u16CounterOVF = 0;
-	static u32 Local_u32Counter = 1;
-	Local_u16CounterOVF++;
-	if(Local_u16CounterOVF >= 255)
-	{
-		//update preload value
-		//TMR_u8_TCNT0 = 192;
-		// Clear ovf counter
-		Local_u16CounterOVF = 0;
-		Local_u32Counter++;
-	}
-	*/
 	// copy these to local variables so they can be stored in registers
 	// (volatile variables must be read from memory on every access)
 	unsigned long m = timer0_millis;
@@ -97,15 +105,15 @@ ISR(TIMER0_OVF_vect)
 unsigned long millis()
 {
 	unsigned long m;
-	//uint8_t oldSREG = SREG;
+	u8 oldSREG = SREG;
 
 	// disable interrupts while we read timer0_millis or we might get an
 	// inconsistent value (e.g. in the middle of a write to timer0_millis)
-	//cli();
-	GIE_voidDisable();
+	cli();
+//	GIE_voidDisable();
 	m = timer0_millis;
-	//SREG = oldSREG;
-	GIE_voidEnable();
+	SREG = oldSREG;
+//	GIE_voidEnable();
 	
 	return m;
 }
@@ -113,11 +121,10 @@ unsigned long millis()
 unsigned long micros() 
 {
 	unsigned long m;
-	//uint8_t oldSREG = SREG, t;
-	u8 t;
-	//cli();
+	u8 oldSREG = SREG, t;
+	cli();
 	
-	GIE_voidDisable();
+//	GIE_voidDisable();
 	m = timer0_overflow_count;
 
 	t = TMR_u8_TCNT0;
@@ -126,8 +133,8 @@ unsigned long micros()
 	if ((GET_BIT(TMR_u8_TIFR,0)) && (t < 255))
 		m++;
 
-	//SREG = oldSREG;
-	GIE_voidEnable();
+	SREG = oldSREG;
+//	GIE_voidEnable();
 	
 	return ((m << 8) + t) * (64 / clockCyclesPerMicrosecond());
 }

@@ -1,12 +1,14 @@
-main.o main.o: ../main.c ../STD_TYPES.h ../TMR_interface.h \
-  ../GIE_interface.h ../BIT_MATH.h ../EXTI_interface.h
+main.o main.o: ../main.c ../STD_TYPES.h ../BIT_MATH.h ../DIO_interface.h \
+  ../GIE_interface.h ../TMR_interface.h ../LCD_interface.h
 
 ../STD_TYPES.h:
 
-../TMR_interface.h:
+../BIT_MATH.h:
+
+../DIO_interface.h:
 
 ../GIE_interface.h:
 
-../BIT_MATH.h:
+../TMR_interface.h:
 
-../EXTI_interface.h:
+../LCD_interface.h:

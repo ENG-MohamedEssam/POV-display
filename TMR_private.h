@@ -17,6 +17,7 @@
 #define TMR_u8_TCNT1H	*((volatile u8*)0x4D)
 #define TMR_u8_TCNT1L	*((volatile u8*)0x4C)
 #define TMR_u8_TCNT2	*((volatile u8*)0x44)
+#define TMR_u8_OCR0		*((volatile u8*)0x5C)
 
 
 

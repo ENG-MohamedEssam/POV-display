@@ -20,7 +20,6 @@ typedef long double 		f128;
 
 #define STD_TYPES_OK		1
 #define STD_TYPES_NOK		0
-#define NULL_POINTER		2
 
 #define NULL	((void*)0)
 
