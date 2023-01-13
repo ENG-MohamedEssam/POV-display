@@ -11,7 +11,7 @@
 #### The project was developed by a team, and it's likely that the team divided the work and each member was responsible for a different part of the project. With this project, the team was able to demonstrate the ability to design and implement a complete embedded systems project, including writing code for both the microcontroller and the algorithm, as well as debugging and testing the system.
 
 ### The following is an image of the hardware system.
-![img]()
+![img](https://github.com/ENG-MohamedEssam/POV-display/blob/main/images/image.jpeg)
 
 
 
