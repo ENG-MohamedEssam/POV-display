@@ -5,17 +5,9 @@
 /*			version  : 1.0					 */
 /*********************************************/
 
-#include "STD_TYPES.h"
-#include "BIT_MATH.h"
+#ifndef GIE_register_h_
+#define GIE_register_h_
+#define SREG 	*((volatile u8*)0x5F)
+#define SREG_I	7
 
-#include "GIE_interface.h"
-#include "GIE_register.h"
-
-void GIE_voidEnable(void)
-{
-	SET_BIT(SREG,SREG_I);
-}
-void GIE_voidDisable(void)
-{
-	CLR_BIT(SREG,SREG_I);
-}
+#endif 
